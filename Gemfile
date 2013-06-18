@@ -21,6 +21,8 @@ end
 
 gem 'jquery-rails'
 gem 'faker'
+gem 'rack-mini-profiler'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails'

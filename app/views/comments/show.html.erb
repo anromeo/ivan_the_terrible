@@ -1,15 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<h2><%= @comment.post.title %></h2>
 <p>
-  <b>Body:</b>
+  <%= @post.body %>
+</p>
+
+<div class="comment">
   <%= @comment.body %>
-</p>
+</div>
 
-<p>
-  <b>Post:</b>
-  <%= @comment.post %>
-</p>
-
-
-<%= link_to 'Edit', edit_comment_path(@comment) %> |
-<%= link_to 'Back', comments_path %>
+<%= link_to 'Edit', [:edit, @post, @comment] %> |
+<%= link_to 'Back', post_comments_path(@post) %>

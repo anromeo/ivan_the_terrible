@@ -1,12 +1,15 @@
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
+
+  caches_page :index
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(1)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
+      format.js
     end
   end
 

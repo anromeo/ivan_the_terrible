@@ -1,0 +1,21 @@
+  <section class="post">
+    <h2><%= post.title %></h2>
+    <div><%= post.body %></div>
+    <div class="post_nav">
+      <%= link_to 'Show', post %> |
+      <%= link_to 'Edit', edit_post_path(post) %> |
+      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+    <div class="comment">
+      <% post.comments.limit(2).each do |c| %>
+        <p><%= c.body %></p>
+        <div class="reply">
+          <% c.replies.each do |r| %>
+            <p><%= r.body %></p>
+          <% end %>
+          <%= link_to "All Replies", post_comment_replies_path(c) if c.replies.size > 2 %>
+        </div>
+      <% end %>
+      <%= link_to "All Comments", post_comments_path(post) if post.comments.size > 2 %>
+    </div>
+  </section>

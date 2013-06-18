@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
+  before_filter :find_post
   # GET /comments
   # GET /comments.json
   def index
-    @comments = Comment.all
+    @comments = @post.comments.page(params[:page]).per(5)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,7 @@ class CommentsController < ApplicationController
   # GET /comments/1
   # GET /comments/1.json
   def show
-    @comment = Comment.find(params[:id])
+    @comment = @post.comments.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +25,7 @@ class CommentsController < ApplicationController
   # GET /comments/new
   # GET /comments/new.json
   def new
-    @comment = Comment.new
+    @comment = @post.comments.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +35,13 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-    @comment = Comment.find(params[:id])
+    @comment = @post.comments.find(params[:id])
   end
 
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(params[:comment])
+    @comment = @post.comments.build(params[:comment])
 
     respond_to do |format|
       if @comment.save
@@ -56,7 +57,7 @@ class CommentsController < ApplicationController
   # PUT /comments/1
   # PUT /comments/1.json
   def update
-    @comment = Comment.find(params[:id])
+    @comment = @post.comments.find(params[:id])
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
@@ -79,5 +80,11 @@ class CommentsController < ApplicationController
       format.html { redirect_to comments_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def find_post
+    @post = Post.find(params[:post_id])
   end
 end

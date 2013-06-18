@@ -1,25 +1,20 @@
-<h1>Listing comments</h1>
-
-<table>
-  <tr>
-    <th>Body</th>
-    <th>Post</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @comments.each do |comment| %>
-  <tr>
-    <td><%= comment.body %></td>
-    <td><%= comment.post %></td>
-    <td><%= link_to 'Show', comment %></td>
-    <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-    <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
+<h2><%= @post.title %></h2>
+<%= link_to 'New Comment', new_post_comment_path(@post) %>
+<p><%= @post.body %></p>
+<%= paginate @comments %>
+<div class="comment">
+  <table>
+    <% @comments.each do |comment| %>
+      <tr>
+        <td><%= comment.body %></td>
+      </tr>
+      <tr>
+        <td>
+          <%= link_to 'Show', [@post, comment] %>
+          <%= link_to 'Edit', [:edit, @post, comment] %>
+          <%= link_to 'Destroy', [@post, comment], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
 <br />
-
-<%= link_to 'New Comment', new_comment_path %>
